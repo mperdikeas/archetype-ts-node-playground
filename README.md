@@ -1,1 +1,0 @@
-# archetype-ts-node-playground
