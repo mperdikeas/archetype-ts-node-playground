@@ -146,6 +146,7 @@ if (false)
     console.log(`are equal? ${(JSON.stringify(a1)===JSON.stringify(a2)) && (JSON.stringify(a2)===JSON.stringify(b))}`);
 })();
 
+if (false)
 (()=>{
     type A = {b: number};
     const a: A | null = {b: 42};
@@ -171,6 +172,7 @@ if (false)
         throw 42;
 })();
 
+if (false)
 (()=>{
     enum T {
         A = 'alpha',
@@ -181,3 +183,71 @@ if (false)
 
     console.log(t);
 })();
+
+if (false) {
+    enum Car {PORCHE='porche', BMW='bmw', JAGUAR='jaguar'};
+
+    const some_car: Car = Car.BMW;
+
+    for (let car in Car) {
+        if (some_car == car)
+            console.log('match from case 1');
+    }
+
+    if (Object.values(Car).includes(some_car))
+        console.log('match from case 2');
+}
+
+if (false) {
+    enum Car {PORCHE='porche', BMW='bmw', JAGUAR='jaguar'};
+
+    const car_prices: Record<Car, number> = {
+        [Car.PORCHE]: 180000,
+        [Car.BMW]: 80000,
+        [Car.JAGUAR]: 230000
+    }
+
+    const some_car: Car = Car.BMW;
+
+    console.log(some_car);
+    
+    for (let x in car_prices) {
+        if (x===some_car)
+            console.log(`the price of ${some_car} is ${car_prices[Car[x as keyof typeof Car]]}`);
+    }
+}
+
+if (true) {
+    enum ParametricTable {
+        A = 'a',
+        B = 'b'
+    }
+
+    type Database = Record<ParametricTable, number>;
+
+    const database: Database = {
+        [ParametricTable.A]: 41,
+        [ParametricTable.B]: 42
+    };
+
+
+    /*
+     * Notice the weird let placement and the lack of a 'let' in the
+     * for loop. For more, see:
+     *
+     *    https://stackoverflow.com/a/63356295/274677    
+     *
+     */
+    let parametric_table: keyof typeof database;
+    for (parametric_table in database) {
+    //        const value: number = database[ParametricTable[parametric_table as keyof typeof ParametricTable]];
+        const value: number = database[parametric_table];
+        if (value===undefined)
+            throw 'weird - this should never be undefined';
+        else
+            console.log(value);
+
+    }
+
+
+}
