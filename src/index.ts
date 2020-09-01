@@ -217,7 +217,7 @@ if (false) {
     }
 }
 
-if (true) {
+if (false) {
     enum ParametricTable {
         A = 'a',
         B = 'b'
@@ -251,3 +251,31 @@ if (true) {
 
 
 }
+
+
+
+// https://stackoverflow.com/q/63670821/274677
+if (false) {
+    enum Car {
+        BMW = 'bmw',
+        AUDI = 'audi'
+    }
+
+    const car = 'bmw';
+
+    // @ts-expect-error
+    const typedCar: Car = Car[car];
+    console.log(typedCar);
+}
+
+if (true) {
+    enum Car {
+        BMW = 'bmw',
+        AUDI = 'audi'
+    }
+
+    const car = 'bmw';
+    const typedCar: Car = car as Car;
+    console.log(`{car} ==> ${typedCar}`);
+
+ }
